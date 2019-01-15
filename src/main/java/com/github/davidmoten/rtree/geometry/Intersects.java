@@ -146,12 +146,16 @@ public final class Intersects {
 				return geometry.intersects(r);
 			else if (geometry instanceof Circle)
 				return geometry.intersects(r);
-			else if (geometry instanceof Point)
+			else if (geometry instanceof Point){
+				System.out.println("fff");
 				return geometry.intersects(r);
+			}
 			else if (geometry instanceof Rectangle)
 				return r.intersects((Rectangle) geometry);
-			else if (geometry instanceof PolygonDouble)
+			else if (geometry instanceof PolygonDouble){
+				System.out.println("ddd");
 				return r.intersects(((PolygonDouble) geometry).mbr());
+			}
 			else
 				throw new RuntimeException("unrecognized geometry: " + geometry);
 		}

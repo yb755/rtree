@@ -3,10 +3,8 @@ package com.github.davidmoten.rtree.geometry.internal;
 import java.util.List;
 
 import com.github.davidmoten.rtree.geometry.Geometry;
-import com.github.davidmoten.rtree.geometry.Point;
 import com.github.davidmoten.rtree.geometry.Rectangle;
 import com.github.davidmoten.rtree.util.CollectionsUtil;
-import com.github.davidmoten.rtree.util.PolygonUtils;
 
 /**
  * 多边形[自己画的围栏，边数在100以内]
@@ -71,7 +69,8 @@ public final class PolygonDouble implements Geometry {
 
 	@Override
 	public boolean intersects(Rectangle r) {
-		return GeometryUtil.intersects(x1, y1, x2, y2, r.x1(), r.y1(), r.x2(), r.y2());
+		boolean result = GeometryUtil.intersects(x1, y1, x2, y2, r.x1(), r.y1(), r.x2(), r.y2());
+		return result;
 	}
 
 	@Override
@@ -79,11 +78,13 @@ public final class PolygonDouble implements Geometry {
 		return true;
 	}
 
-	public boolean intersects(Point point) {
-		return contains(point.x(), point.y());
+	public List<Double> getxList() {
+		return xList;
 	}
 
-	private boolean contains(double px, double py) {
-		return PolygonUtils.isPointInPolygon(px, py, xList, yList);
+	public List<Double> getyList() {
+		return yList;
 	}
+	
+	
 }

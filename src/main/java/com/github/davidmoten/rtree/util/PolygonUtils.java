@@ -1,11 +1,24 @@
 package com.github.davidmoten.rtree.util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PolygonUtils {
 
+	public static void main(String[] args) {
+		List<Double> xList = new ArrayList<Double>();
+		xList.add(1d);
+		xList.add(3d);
+		xList.add(3d);
+		List<Double> yList = new ArrayList<Double>();
+		yList.add(1d);
+		yList.add(1d);
+		yList.add(3d);
+		System.out.println(isPointInPolygon(2, 3, xList, yList));
+	}
+
 	public static boolean isPointInPolygon(double px, double py, List<Double> polygonXA, List<Double> polygonYA) {
-		
+
 		boolean isInside = false;
 		double ESP = 1.E-009D;
 		int count = 0;
@@ -31,7 +44,7 @@ public class PolygonUtils {
 			double cy1 = polygonYA.get(i);
 			double cx2 = polygonXA.get(i + 1);
 			double cy2 = polygonYA.get(i + 1);
-			
+
 			if (isPointOnLine(px, py, cx1, cy1, cx2, cy2)) {
 				return true;
 			}
@@ -62,8 +75,7 @@ public class PolygonUtils {
 	private static boolean isPointOnLine(double px0, double py0, double px1, double py1, double px2, double py2) {
 		boolean flag = false;
 		double ESP = 1.E-009D;
-		if ((Math.abs(multiply(px0, py0, px1, py1, px2, py2)) < ESP) && ((px0 - px1) * (px0 - px2) <= 0.0D)
-				&& ((py0 - py1) * (py0 - py2) <= 0.0D)) {
+		if ((Math.abs(multiply(px0, py0, px1, py1, px2, py2)) < ESP) && ((px0 - px1) * (px0 - px2) <= 0.0D) && ((py0 - py1) * (py0 - py2) <= 0.0D)) {
 			flag = true;
 		}
 		return flag;
