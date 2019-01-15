@@ -13,6 +13,7 @@ import com.github.davidmoten.rtree.geometry.internal.PointDouble;
 import com.github.davidmoten.rtree.geometry.internal.PolygonDouble;
 import com.github.davidmoten.rtree.geometry.internal.RectangleDouble;
 import com.github.davidmoten.rtree.util.PolygonUtils;
+import com.github.davidmoten.rtree.util.PolygonUtils;
 
 public class PolygonTest {
 
@@ -25,16 +26,26 @@ public class PolygonTest {
 		rtree = rtree.add("5", PointDouble.create(113.54215d, 22.25412d));
 		rtree = rtree.add("4", RectangleDouble.create(113.64215d, 22.26412d, 114.53215d, 23.24412d));
 		List<Double> xList = new ArrayList<Double>();
+//		xList.add(1d);
+//		xList.add(3d);
+//		xList.add(3d);
+//		xList.add(1d);
 		xList.add(1d);
 		xList.add(3d);
 		xList.add(3d);
+		xList.add(1d);
 		List<Double> yList = new ArrayList<Double>();
+//		yList.add(1d);
+//		yList.add(1d);
+//		yList.add(3d);
+//		yList.add(1d);
 		yList.add(1d);
 		yList.add(1d);
 		yList.add(3d);
+		yList.add(3d);
 		rtree = rtree.add("6", PolygonDouble.create(xList, yList));
 		System.out.println(rtree.asString());
-		final Point point = Geometries.point(2, 3);
+		final Point point = Geometries.point(2.8, 1);
 		Observable<Entry<String, Geometry>> observable = rtree.search(point);
 		Iterable<Entry<String, Geometry>> it = observable.filter(new Func1<Entry<String, Geometry>, Boolean>() {
 
@@ -44,8 +55,7 @@ public class PolygonTest {
 					PolygonDouble polygon = (PolygonDouble) t.geometry();
 					System.out.println(point.x() + "," + point.y());
 					System.out.println(polygon.getxList() + "---" + polygon.getyList());
-					boolean result = PolygonUtils.isPointInPolygon(point.x(), point.y(), polygon.getxList(), polygon.getyList());
-					// TODO 这个点在多边形内的算法有问题!!!!!
+					boolean result = PolygonUtils.pointInPolygon(point.x(), point.y(), polygon.getxList(), polygon.getyList());
 					System.out.println(result);
 					return result;
 				} else if (t.geometry() instanceof CircleDouble) {
