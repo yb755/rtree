@@ -18,9 +18,9 @@ public class PolygonTest {
 
 	public static void main(String[] args) {
 		RTree<String, Geometry> rtree = RTree.create();
-		// 圆形的半径，需要大概的算出它的MBR
-		rtree = rtree.add("1", CircleDouble.create(113.54215d, 22.25412d, 1000 / 1000));
-		rtree = rtree.add("2", CircleDouble.create(113.54215d, 22.25412d, 2000 / 1000));
+		// 圆形的半径，需要大概的算出它的MBR[0.001约等于157米]
+		rtree = rtree.add("1", CircleDouble.create(113.54215d, 22.25412d, 1000 / 100000d));
+		rtree = rtree.add("2", CircleDouble.create(113.54215d, 22.25412d, 2000 / 100000d));
 		rtree = rtree.add("3", RectangleDouble.create(113.54215d, 22.25412d, 114.54215d, 23.25412d));
 		rtree = rtree.add("5", PointDouble.create(113.54215d, 22.25412d));
 		rtree = rtree.add("4", RectangleDouble.create(113.64215d, 22.26412d, 114.53215d, 23.24412d));
@@ -49,8 +49,9 @@ public class PolygonTest {
 					System.out.println(result);
 					return result;
 				} else if (t.geometry() instanceof CircleDouble) {
-					// TODO 判断两个点的距离与半径的大小
-					return true;
+					System.out.println("circle....");
+					CircleDouble circle = (CircleDouble) t.geometry();
+					return circle.intersects(point);
 				} else {
 					return true;
 				}
