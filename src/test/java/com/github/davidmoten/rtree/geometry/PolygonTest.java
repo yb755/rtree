@@ -18,6 +18,7 @@ public class PolygonTest {
 
 	public static void main(String[] args) {
 		RTree<String, Geometry> rtree = RTree.create();
+		// 圆形的半径，需要大概的算出它的MBR
 		rtree = rtree.add("1", CircleDouble.create(113.54215d, 22.25412d, 1000 / 1000));
 		rtree = rtree.add("2", CircleDouble.create(113.54215d, 22.25412d, 2000 / 1000));
 		rtree = rtree.add("3", RectangleDouble.create(113.54215d, 22.25412d, 114.54215d, 23.25412d));
